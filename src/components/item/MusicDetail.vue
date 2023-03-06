@@ -19,12 +19,16 @@
             </svg>
         </div>
    </div>
-
-   <div class="middle">
+  <div class="lyric" style="position: absolute;overflow: hidden" :class="{hidden:!isbtnShow}">
+    {{lyricList}}
+  </div>
+   <div class="middle"  :class="{hidden:isbtnShow}">
     <img src="@/assets/lagan.png" alt="" class="lagan" :class="{lagan_active:!isbtnShow}">
     <img src="@/assets/cd.png" alt="" class="cd" >
     <img :src="musicList.al.picUrl" alt="" class="img" :class="{img_active:!isbtnShow,img_paused:isbtnShow}">
    </div>
+
+
 
    <div class="bottom">
     <div class="bottom-top">
@@ -70,7 +74,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import { mapMutations } from 'vuex';
+import { mapMutations,mapState } from 'vuex';
 export default {
     props:['musicList','isbtnShow','play'],
 //import引入的组件需要注入到对象中才能使用
@@ -80,12 +84,15 @@ components: {
 data() {
 //这里存放数据
 return {
+  isLyricShow:false,
 
 };
 },
 
 //监听属性 类似于data概念
-computed: {},
+computed: {
+      ...mapState(['lyricList'])
+},
 //监控data中的数据变化
 watch: {},
 //方法集合
@@ -133,7 +140,7 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
     .top-left{
         display: flex;
         flex-direction: row;
-        margin-left: 0px;
+        margin-left: 0;
         color: rgb(193, 193, 193);
         .unknown{
             margin-left: 10px;
@@ -151,6 +158,9 @@ activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 
 }
 
+.hidden{
+  visibility: hidden;
+}
 .middle{
     width: 100%;
     height: 400px;

@@ -22,7 +22,9 @@ export default createStore({
       //播放按钮
       isbtnShow:true,
       //detailShow详情页展示
-      detailShow:false
+      detailShow:false,
+      //歌词
+      lyricList:{}
   },
 
   //get方法
@@ -44,6 +46,9 @@ export default createStore({
     updatedetailShow:function(state){
       state.detailShow = !state.detailShow
       console.log(state.detailShow);
+    },
+    updateLyricList:function (state,value){
+      state.lyricList = value;
     }
   },
   //异步操作
@@ -51,6 +56,7 @@ export default createStore({
      getLyric:async function(context,value){
       let res = await getLyric(value);
       console.log(res);
+      context.commit('updateLyricList',res.data.lrc)
     }
   },
   modules: {
